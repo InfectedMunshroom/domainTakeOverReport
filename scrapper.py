@@ -2,6 +2,10 @@ from playwright.sync_api import sync_playwright
 import sys
 import requests
 
+critical= list()
+medium = list()
+low = list()
+
 def scrape_site(url):
     with sync_playwright() as p:
         browser = p.firefox.launch()
@@ -18,6 +22,7 @@ def scrape_site(url):
                 print(f"   sec-fetch-site: {headers['sec-fetch-site']}")
                 if headers['sec-fetch-site'] == 'cross-site' and request.headers['sec-fetch-site']:
                     print("Cross-site request detected!")
+
 
         def log_response(response):
             if response.status in [301, 302, 307, 308]:
