@@ -9,7 +9,7 @@ def scrape_site(url):
 
         # Capture requests and responses
         def log_request(request):
-            print(f"➡️ Request: {request.method} {request.url}")
+            print(f"Request: {request.method} {request.url}")
             headers = request.headers
             sec_fetch_site = headers.get("sec-fetch-site")
             print(f"   sec-fetch-site: {sec_fetch_site}")
@@ -17,11 +17,11 @@ def scrape_site(url):
             if 'sec-fetch-site' in headers:
                 print(f"   sec-fetch-site: {headers['sec-fetch-site']}")
                 if headers['sec-fetch-site'] == 'cross-site' and request.headers['sec-fetch-site']:
-                    print("   🚨 Cross-site request detected!")
+                    print("Cross-site request detected!")
 
         def log_response(response):
             if response.status in [301, 302, 307, 308]:
-                print(f"🔁 Redirected: {response.status} from {response.url}")
+                print(f"Redirected: {response.status} from {response.url}")
         
         context.on("request", log_request)
         context.on("response", log_response)
@@ -29,9 +29,9 @@ def scrape_site(url):
         page = context.new_page()
         try:
             page.goto(url, timeout=15000)
-            print(f"✅ Page loaded: {url}")  
+            print(f"Page loaded: {url}")  
         except Exception as e:
-            print(f"❌ Error loading page: {e}")
+            print(f"Error loading page: {e}")
 
         browser.close()
 
